@@ -1,5 +1,6 @@
 package sample.cafekiosk.unit;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
@@ -22,6 +23,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("음료 1개를 추가하면 주문 목록에 담긴다.")
     void add() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         cafeKiosk.add(new Americano());
@@ -31,6 +33,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("음료를 여러 잔 추가하면 주문 목록에 담긴다.")
     void addSeveralBeverages() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -42,6 +45,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("음료를 0개 이하로 추가하면 예외가 발생한다.")
     void addZeroBeverage() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -52,6 +56,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("아메리카노 음료를 추가한 후 제거한다.")
     void remove() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -64,6 +69,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("주문 목록을 비운다.")
     void clear() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -78,7 +84,9 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("주문 목록에 담긴 상품들의 총 금액을 계산할 수 있다.")
     void calculateTotalPrice() {
+        // given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
         Latte latte = new Latte();
@@ -86,10 +94,15 @@ class CafeKioskTest {
         cafeKiosk.add(americano);
         cafeKiosk.add(latte);
 
-        assertThat(cafeKiosk.calculateTotalPrice()).isEqualTo(4000 + 4500);
+        // when
+        int totalPrice = cafeKiosk.calculateTotalPrice();
+
+        // then
+        assertThat(totalPrice).isEqualTo(4000 + 4500);
     }
 
     @Test
+    @DisplayName("영업 시간 내에는 주문을 생성할 수 있다.")
     void createOrderWithCurrentTime() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
@@ -103,6 +116,7 @@ class CafeKioskTest {
     }
 
     @Test
+    @DisplayName("영업 시간 종료 이후에는 주문을 생성할 수 없다.")
     void createOrderOutsideOpenTime() {
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
